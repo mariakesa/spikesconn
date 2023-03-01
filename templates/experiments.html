@@ -1,14 +1,13 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Experiment IDs</title>
-  </head>
-  <body>
-    <h1>Experiment IDs</h1>
-    <ul>
-      {% for eid in eids %}
-        <li>{{ eid }}</li>
-      {% endfor %}
-    </ul>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experiments</title>
+</head>
+<body>
+    <h1>Experiments</h1>
+    {% for eid in eids %}
+        <p><a href="/{{eid}}">{{eid}}</a></p>
+    {% endfor %}
+</body>
 </html>
