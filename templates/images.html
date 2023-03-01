@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MLAPDV Plot</title>
+  </head>
+  <body>
+    <h1>MLAPDV Plot</h1>
+    {% if plot_path00 is not none %}
+    <img src="{{ plot_path00 }}" alt="MLAPDV Plot">
+    {% endif %}
+    {% if plot_path01 is not none %}
+    <img src="{{ plot_path01 }}" alt="MLAPDV Plot">
+    {% endif %}
+  </body>
+</html>
