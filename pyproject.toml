@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "spikesconn"
+version = "0.1.0"
+description = "API that queries Allen Brain Insitute and IBL data"
+authors = ["Maria Kesa"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Flask = "^2.2.3"
+requests = "^2.28.2"
+brainrender = "^2.0.5.5"
+allensdk = "2.15.1"
+ONE-api = "1.21.0"
+ibllib = "2.21.2"
+
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
