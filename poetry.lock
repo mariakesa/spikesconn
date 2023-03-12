@@ -3212,6 +3212,24 @@ docs = ["sphinx (>=4.5.0,<5.0.0)", "sphinx-rtd-theme", "zope.interface"]
 tests = ["coverage[toml] (==5.0.4)", "pytest (>=6.0.0,<7.0.0)"]
 
 [[package]]
+name = "pynndescent"
+version = "0.5.8"
+description = "Nearest Neighbor Descent"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "pynndescent-0.5.8.tar.gz", hash = "sha256:a7c552569bf604a101fd54bba1d27c12389e065945dee3a6777a518c63a46f2b"},
+]
+
+[package.dependencies]
+joblib = ">=0.11"
+llvmlite = ">=0.30"
+numba = ">=0.51.2"
+scikit-learn = ">=0.18"
+scipy = ">=1.0"
+
+[[package]]
 name = "pynrrd"
 version = "0.4.3"
 description = "Pure python module for reading and writing NRRD files."
@@ -4622,6 +4640,29 @@ files = [
 ]
 
 [[package]]
+name = "umap-learn"
+version = "0.5.3"
+description = "Uniform Manifold Approximation and Projection"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "umap-learn-0.5.3.tar.gz", hash = "sha256:dbd57cb181c2b66d238acb5635697526bf24c798082daed0cf9b87f6a3a6c0c7"},
+]
+
+[package.dependencies]
+numba = ">=0.49"
+numpy = ">=1.17"
+pynndescent = ">=0.5"
+scikit-learn = ">=0.22"
+scipy = ">=1.0"
+tqdm = "*"
+
+[package.extras]
+parametric-umap = ["tensorflow (>=2.1)", "tensorflow-probability (>=0.10)"]
+plot = ["bokeh", "colorcet", "datashader", "holoviews", "matplotlib", "pandas", "scikit-image", "seaborn"]
+
+[[package]]
 name = "urllib3"
 version = "1.26.14"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
@@ -5014,4 +5055,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "ee26b5315b3b6b1fbd602a6b1ce24baede1fecd91a41c1a5b91f865ea564fb35"
+content-hash = "655f2bcf56e57604300a814a43fe37d0ebb4b8c4130f41dabbd1e6df9f43ca80"

@@ -31,6 +31,7 @@ def generate_mlapdv_plot(mlapdv,ind):
 
     fit=at.Trajectory.fit(xyz)
     proj=fit.project(xyz)
+    print('PROJ', proj)
 
     # create a figure with subplots
     fig, axs = plt.subplots(1, 2, figsize=(12, 6))
@@ -39,6 +40,7 @@ def generate_mlapdv_plot(mlapdv,ind):
     # render the first image
     ax0 = atlas.plot_tilted_slice(xyz, 0, ax=axs[0])
     ax0[0].scatter(proj[:, 1]*1e6, proj[:, 2]*1e6, c='pink', s=5)
+    
 
     # render the second image
     ax1 = atlas.plot_tilted_slice(xyz, 1, ax=axs[1])
