@@ -8,10 +8,20 @@ import pickle
 import plotly.graph_objs as go
 
 # Create sample data
-image_matrix = np.load('image_matrix.npy')
-psth_prototype_arr = np.load('psth_prototypes_arr.npy')
-psth_arr = np.load('psth_arr.npy')
-with open('bmu_dct.pickle', 'rb') as handle:
+#image_matrix = np.load('image_matrix.npy')
+image_matrix=np.load('alpha_im_z.npy')
+print(image_matrix)
+image_matrix=image_matrix*255
+image_matrix=image_matrix.transpose(1,0,2)
+
+#colorscale = [[0, 'rgba(0, 0, 0, 0)'], [1, 'rgba(0, 0, 0, 1)']]
+
+
+#image_matrix = np.moveaxis(image_matrix, -1, 0)
+#image_matrix[..., 3] = np.where(image_matrix[..., 3] == 1.0, 255, 25.5).astype(np.uint8)
+psth_prototype_arr = np.load('psth_prototypes_arr_z.npy')
+psth_arr = np.load('psth_arr_z.npy')
+with open('bmu_dct_z.pickle', 'rb') as handle:
     bmu_dct = pickle.load(handle)
 
 # Define app
@@ -22,7 +32,7 @@ app.layout = html.Div([
     html.Div([
         dcc.Graph(
             id='image',
-            figure=px.imshow(image_matrix),
+            figure=px.imshow(image_matrix, facet_col_spacing=1, facet_row_spacing=1),
             style={'height':'50%','width': '50%', 'display': 'inline-block'}
         ),
         dcc.Graph(
