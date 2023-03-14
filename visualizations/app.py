@@ -20,6 +20,7 @@ image_matrix=image_matrix.transpose(1,0,2)
 #image_matrix = np.moveaxis(image_matrix, -1, 0)
 #image_matrix[..., 3] = np.where(image_matrix[..., 3] == 1.0, 255, 25.5).astype(np.uint8)
 psth_prototype_arr = np.load('psth_prototypes_arr_z.npy')
+psth_prototype_arr=psth_prototype_arr.transpose(1,0,2)
 psth_arr = np.load('psth_arr_z.npy')
 with open('bmu_dct_z.pickle', 'rb') as handle:
     bmu_dct = pickle.load(handle)
