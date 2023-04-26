@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>My Chart</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/d3fc"></script>
+    <style>
+      #chart {
+        width: 600px;
+        height: 400px;
+        margin: 20px;
+      }
+
+      .tooltip {
+        position: absolute;
+        display: none;
+        padding: 10px;
+        background-color: #f2f2f2;
+        border: 1px solid #d4d4d4;
+        border-radius: 5px;
+        pointer-events: none;
+      }
+
+      .tooltip img {
+        max-width: 200px;
+        max-height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chart"></div>
+    <script>
+      const width = 600,
+        height = 400;
+      const xScale = d3.scaleLinear().domain([-50, 50]).range([0, width]);
+
+      const yScale = d3.scaleLinear().domain([-50, 50]).range([height, 0]);
+
+      d3.csv("probe_insertion_embeddings_index.csv").then(function (data) {
+        const formattedData = data.map((d, i) => {
+          // Add the index column to each object
+          return { i: d.index };
+        });
+
+        const pointSeries = fc
+          .seriesWebglPoint()
+          .crossValue((d) => d.x)
+          .mainValue((d) => d.y);
+
+        const chart = fc
+          .chartCartesian(xScale, yScale)
+          .webglPlotArea(pointSeries);
+
+        d3.select("#chart").datum(data).call(chart);
+
+        var tooltip = d3
+          .select("#chart")
+          .append("div")
+          .style("opacity", 0)
+          .attr("class", "tooltip")
+          .style("background-color", "white")
+          .style("border", "solid")
+          .style("border-width", "1px")
+          .style("border-radius", "5px")
+          .style("padding", "10px");
+
+        var mouseover = function (d) {
+          tooltip.style("opacity", 1);
+        };
+
+        var mousemove = function (d) {
+          console.log(d);
+          tooltip
+            .html(`<img src="static/mlapdv_plot_${d.index}.png">`)
+            .style("left", d3.mouse(this)[0] + 90 + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
+            .style("top", d3.mouse(this)[1] + "px");
+        };
+
+        // A function that change this tooltip when the leaves a point: just need to set opacity to 0 again
+        var mouseleave = function (d) {
+          tooltip.transition().duration(200).style("opacity", 0);
+        };
+      });
+    </script>
+  </body>
+</html>

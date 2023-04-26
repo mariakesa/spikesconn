@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>My Chart</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/d3fc"></script>
+    <style>
+      #chart {
+        width: 600px;
+        height: 400px;
+        margin: 20px;
+      }
+
+      .tooltip {
+        position: absolute;
+        display: none;
+        padding: 10px;
+        background-color: #f2f2f2;
+        border: 1px solid #d4d4d4;
+        border-radius: 5px;
+        pointer-events: none;
+      }
+
+      .tooltip img {
+        max-width: 200px;
+        max-height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chart"></div>
+    <div class="tooltip"></div>
+
+    <script>
+      const width = 600,
+        height = 400;
+      const xScale = d3.scaleLinear().domain([-50, 50]).range([0, width]);
+
+      const yScale = d3.scaleLinear().domain([-50, 50]).range([height, 0]);
+      d3.csv("probe_insertion_embeddings.csv").then(function (data) {
+        const pointSeries = fc
+          .seriesWebglPoint()
+          .crossValue((d) => d.x)
+          .mainValue((d) => d.y);
+
+        const chart = fc
+          .chartCartesian(xScale, yScale)
+          .webglPlotArea(pointSeries);
+
+        d3.select("#chart").datum(data).call(chart);
+
+        d3.select("#chart")
+          .on("mouseover", function (event) {
+            // Get the index of the data point being hovered over
+            const index = event.which;
+            console.log(index);
+
+            // Create the tooltip element
+            const tooltip = d3
+              .select("body")
+              .append("div")
+              .attr("class", "tooltip")
+              .style("position", "absolute")
+              .style("z-index", "10")
+              .style("visibility", "visible")
+              .html(`<img src="static/mlapdv_plot_${index}.png">`);
+
+            // Position the tooltip element
+            const tooltipHeight = tooltip.node().getBoundingClientRect().height;
+            const xPosition = event.pageX + 10;
+            const yPosition = event.pageY - tooltipHeight - 10;
+            tooltip
+              .style("left", xPosition + "px")
+              .style("top", yPosition + "px");
+          })
+          .on("mouseout", function () {
+            // Remove the tooltip element
+            d3.select(".tooltip").remove();
+          });
+      });
+    </script>
+  </body>
+</html>
