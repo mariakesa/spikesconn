@@ -73,22 +73,26 @@ def generate_mlapdv_plots(eids):
         fig, axs = plt.subplots(1, 2, figsize=(
             12, 6), gridspec_kw={'wspace': 0.5})
 
-        # Render the first image
-        ax0 = atlas.plot_tilted_slice(xyz, 0, ax=axs[0])
-        ax0[0].scatter(proj[:, 1]*1e6, proj[:, 2]*1e6, c='pink', s=5)
+        try:
+            # Render the first image
+            ax0 = atlas.plot_tilted_slice(xyz, 0, ax=axs[0])
+            ax0[0].scatter(proj[:, 1]*1e6, proj[:, 2]*1e6, c='pink', s=5)
 
-        # Render the second image
-        ax1 = atlas.plot_tilted_slice(xyz, 1, ax=axs[1])
-        ax1[0].scatter(proj[:, 0]*1e6, proj[:, 2]*1e6, c='pink', s=5)
+            # Render the second image
+            ax1 = atlas.plot_tilted_slice(xyz, 1, ax=axs[1])
+            ax1[0].scatter(proj[:, 0]*1e6, proj[:, 2]*1e6, c='pink', s=5)
 
-        # Save the plot to a file with a unique name
-        filename = f'static_kohonen/mlapdv_plot_{i}.png'
-        fig.savefig(filename, bbox_inches='tight')
+            # Save the plot to a file with a unique name
+            filename = f'static_kohonen/mlapdv_plot_{i}.png'
+            fig.savefig(filename, bbox_inches='tight')
+        except:
+            continue
 
         # Return the path to the saved file
         yield eid, filename
 
 
+plotter = generate_mlapdv_plots(eids)
 for j in range(len(eids)):
     print(j)
-    next(generate_mlapdv_plots(eids))
+    next(plotter)
